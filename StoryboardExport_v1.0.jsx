@@ -1,5 +1,5 @@
 // ====================================================
-// 分镜导出 v8.3 - 连续镜头命名逻辑彻底修正
+// 分镜导出 v1.0.0 (中文版)
 // ====================================================
 #target photoshop
 app.preferences.rulerUnits = Units.PIXELS;
@@ -107,7 +107,7 @@ function parseContinuity(layerName) {
 
 // ---------- 构建对话框 ----------
 function buildDialog(prefs) {
-    var dlg = new Window("dialog", "分镜导出设置 v8.3");
+    var dlg = new Window("dialog", "分镜导出设置 v1.0.0");
     dlg.orientation = "column";
     dlg.alignChildren = "fill";
     dlg.spacing = 8;
@@ -379,10 +379,10 @@ try {
 
     for (var l = 0; l < layersToProcess.length; l++) {
         var srcLayer = layersToProcess[l];
-        var currentMainName = prefs.startNumber; // 每个图层独立起始编号
+        var currentMainName = prefs.startNumber;
         var subIndex = 0;
         var regionIndex = 0;
-        var prevCont = false; // 前一个区域是否为连续区域
+        var prevCont = false;
 
         var continuityList = parseContinuity(srcLayer.name);
 
@@ -396,23 +396,18 @@ try {
 
             if (sub <= 0) {
                 regionIndex++;
-                prevCont = isCont; // 跳过区域仍需更新 prevCont，以免影响后续判断
+                prevCont = isCont;
                 continue;
             }
 
-            // ---------- v8.3 核心修正：编号递增逻辑 ----------
+            // 编号递增逻辑
             if (regionIndex === 0) {
-                // 第一个区域，保持起始编号
             } else if (isCont && !prevCont) {
-                // 连续序列的起点：需占用新的主编号
                 currentMainName = incrementName(currentMainName);
                 subIndex = 0;
             } else if (!isCont) {
-                // 普通独立镜头：递增主编号
                 currentMainName = incrementName(currentMainName);
                 subIndex = 0;
-            } else if (isCont && prevCont) {
-                // 连续序列的后续：主编号不变，子编号会继续累加
             }
 
             // 计算裁剪坐标
@@ -445,7 +440,6 @@ try {
             for (var v = 0; v < sub; v++) {
                 var fullFileName;
                 if (isCont) {
-                    // 所有连续区域均使用子编号
                     subIndex++;
                     fullFileName = currentMainName + "-" + zeroPad(subIndex, 2);
                 } else {
@@ -468,7 +462,6 @@ try {
                 }
             }
 
-            // 更新状态
             prevCont = isCont;
             regionIndex++;
         }
