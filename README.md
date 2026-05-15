@@ -1,209 +1,154 @@
-# Photoshop Storyboard Exporter
+# Storyboard Export for Photoshop
 
-> 🎬 **一键完成分镜裁剪与专业摄影表命名，让动画师/分镜师每天节省 2 小时以上重复劳动。**
+**分镜导出 v1.0.1** – 一款轻量、高效的 Photoshop 分镜导出脚本，帮助动画、影视和故事板艺术家快速将分层分镜文档导出为规范命名的图片序列。
 
-一款为动画、漫画、影视前期创作者打造的 Photoshop 自动化脚本。根据您绘制的参考线，自动裁剪画格、导出高清 JPG，并生成符合行业规范的连续镜头编号（如 `002-01`, `002-02`），彻底告别手动导出和重命名的繁琐流程。
-
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/0dffbb9d-60d0-4ebf-bec8-5a65bb9f42c0" width="600" alt="脚本主界面" />
-  <p><b>▲ 设置参考线</b> — 水平参考线定义区域，垂直参考线限制宽度</p>
-  <br/>
-  <img src="https://github.com/user-attachments/assets/aed0c2d5-0e86-4c0a-bf04-963d84a8ebc6" width="600" alt="导出设置对话框" />
-  <p><b>▲ 一键配置</b> — 选择输出目录、裁剪模式、子镜头数，智能命名</p>
-  <br/>
-  <img src="https://github.com/user-attachments/assets/1c10c07e-925e-4831-934f-55a3403f4ed2" width="600" alt="导出效果展示" />
-  <p><b>▲ 导出效果</b> — 连续镜头自动编号，告别混乱文件名</p>
-</div>
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
+![Photoshop](https://img.shields.io/badge/Photoshop-CC%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
-## ✨ 为什么你需要它？
+## 📖 简介 | Introduction
 
-| 传统手工流程 | 使用本脚本 |
-|--------------|------------|
-| 手动裁剪每个画格，反复调整尺寸 | 基于参考线**自动裁剪**，一次到位 |
-| 逐个导出图层，手动输入文件名 | **一键批量导出**所有图层，智能递增编号 |
-| 连续镜头命名混乱（`002_v2`, `002_final`） | 图层标记 `[cont:3,4]`，**自动生成 `002-01, 002-02`** |
-| 不同项目反复修改导出尺寸 | 预设管理（1080p / 4K / 方形），**一键切换** |
-| 每次导出消耗 30-60 分钟 | **数秒完成**，一天可多处理数倍镜头 |
+Storyboard Export 是一个为 Adobe Photoshop 编写的脚本，能够根据**参考线**定义的区域（例如分镜框）和**图层可见性**，自动裁剪、缩放并导出每个分镜画面，同时支持**连续镜头（同一编号下生成子编号）**、多格式输出及批量重命名等高级功能。
 
-> ⏱️ **实测：一个拥有 10 个图层、每层 5 个区域的分镜文件，手动需要约 45 分钟，本脚本只需 8 秒。**
+> It’s a Photoshop script that automatically exports each storyboard panel defined by **guides** and layer visibility, with support for **continuity (sub‑numbers under the same main number)** , multiple formats, batch rename, and more.
 
 ---
 
-## 📦 核心功能
+## ✨ 主要特性 | Features
 
-- 🎯 **智能裁剪**：垂直优先 / 水平优先两种模式，自动适应画幅比例（1920×1080 等）。
-- 🧩 **多图层批处理**：可仅处理当前可见图层，或一键处理所有图层，每个图层独立编号。
-- 🔢 **连续镜头命名**：独创图层标记法（`[cont:区域号]`），同镜头连续画面自动共享主编号并追加子编号。
-- ⚙️ **自定义分辨率 & 预设**：内置 1080p、4K、方形等预设，也可自由修改并保存。
-- ⏱️ **导出计时 & 日志**：自动生成日志文件，方便核对与流程追踪。
+- ✅ **智能编号系统**  
+  基于连续镜头关系动态生成主编号与子编号（如 `001`, `002-01`, `002-02`），符合实际拍摄逻辑。  
+  *Intelligent numbering based on continuity – main number and sub‑numbers.*
 
----
+- ✅ **多格式导出**  
+  支持 JPG（高质量）、PNG（带压缩）、WebP（自动降级为 PNG）。  
+  *Export to JPG, PNG, or WebP (falls back to PNG if WebP unsupported).*
 
-## 💻 系统要求
+- ✅ **图形化连续镜头设置**  
+  无需手动输入 `[cont:...]` 标签，通过表格界面为每个图层的不同区域勾选连续镜头，实时保存。  
+  *Visual table to mark continuous regions per layer – no more manual tags.*
 
-- **Adobe Photoshop CS6** 或更高版本（支持 ExtendScript）
-- Windows 或 macOS
+- ✅ **批量重命名图层**  
+  一键重命名所有图层，自定义前缀、起始数字、位数及排序方向。  
+  *Batch rename layers with prefix, start number, digits, and order.*
 
----
+- ✅ **导出进度窗口**  
+  实时显示进度、当前文件名，支持中途取消。  
+  *Progress window with cancel option.*
 
-## 📥 安装方法
+- ✅ **跳过已存在文件**  
+  避免重复覆盖，节省时间。  
+  *Skip existing files to avoid overwriting.*
 
-1. 在 [Releases](https://github.com/enktici-lgtm/Photoshop-Storyboard-Exporter/releases) 页面下载最新的 `StoryboardExport_v1.0_CN.jsx`（中文界面）或 `StoryboardExport_v1.0_EN.jsx`（英文界面）。
-2. 将脚本文件复制到 Photoshop 的 Scripts 文件夹：
-   - **Windows**: `C:\Program Files\Adobe\Adobe Photoshop [版本]\Presets\Scripts`
-   - **macOS**: `/Applications/Adobe Photoshop [版本]/Presets/Scripts`
-3. 重启 Photoshop，在菜单栏 `文件 → 脚本` 中即可看到并运行。
+- ✅ **支持图层组**  
+  递归处理所有可见图层（包括组内图层）。  
+  *Recursively processes layers inside groups.*
 
----
+- ✅ **裁剪模式**  
+  垂直优先（左右固定，上下居中）或水平优先（上下固定，左右居中）。  
+  *Two crop modes: vertical‑priority or horizontal‑priority.*
 
-## 🚀 快速上手
-
-### 1. 准备你的分镜文件
-确保 PSD 中包含：
-- **至少两条水平参考线**（定义每个镜头区域）。
-- **（可选）两条垂直参考线**（在“垂直优先”模式下固定左右边界，或在“水平优先”模式下作为居中范围）。
-
-### 2. 运行脚本并设置
-- **预设**：快速切换输出分辨率。
-- **输出文件夹**：选择导出位置。
-- **起始编号**：支持纯数字（`000`）或带前缀（`SH001`），自动递增。
-- **裁剪基准**：
-  - *垂直优先*：左右由垂直参考线固定，上下居中裁剪。
-  - *水平优先*：上下由水平参考线固定，左右在垂直参考线（或画布）内居中。
-- **图层范围**：仅可见图层或所有图层。
-- **子镜头数**：每个区域可以指定导出张数，适合同一构图的多帧连续。
-
-### 3. 标记连续镜头（可选）
-在图层名称末尾添加 `[cont:区域号]`，例如 `场景1 [cont:3,4]`。  
-这表示区域 3 和区域 4 是同一镜头的连续拍摄，导出时它们将共享主编号，并自动生成 `002-01`、`002-02` 等子编号。
-
-详细帮助可点击对话框中的 **💡 如何标记连续镜头？** 按钮查看。
-
-### 4. 导出
-点击 **开始导出**，等待数秒即可在输出文件夹得到整齐命名的 JPG 文件，同时生成 `export_log.txt` 日志。
+- ✅ **配置持久化**  
+  自动保存所有设置（输出文件夹、预设、连续镜头标记等）。  
+  *Preferences are automatically saved and restored.*
 
 ---
 
-## 🤝 反馈与贡献
+## 📥 安装与使用 | Installation & Usage
 
-本项目完全开源，欢迎通过以下方式参与：
-- **提交 Issue**：报告 Bug 或提出新功能需求。
-- **提交 Pull Request**：改进代码或完善文档。
-- **分享给朋友**：让更多创作者告别重复劳动。
+### 安装方法
 
-GitHub 仓库：[https://github.com/enktici-lgtm/Photoshop-Storyboard-Exporter](https://github.com/enktici-lgtm/Photoshop-Storyboard-Exporter)
+1. 下载 `StoryboardExport_v1.0.1_CN.jsx` 文件。
+2. 在 Photoshop 中，通过菜单 **文件 > 脚本 > 浏览** 找到并运行该文件。
+3. （可选）将脚本复制到 Photoshop 的 `Presets/Scripts` 文件夹中，之后即可在 **文件 > 脚本** 菜单下直接调用。
 
----
+### 快速开始
 
-## 📄 许可证
+1. **准备文档**  
+   - 使用**水平参考线**定义每个分镜区域的上下边界（至少两条线）。  
+   - （可选）使用**垂直参考线**约束左右边界。  
+   - 将每个分镜画面放在独立的**图层**中（可以为图层组内的图层）。
 
-本项目基于 [MIT License](LICENSE) 开源，可自由使用、修改和分发。
+2. **运行脚本**  
+   - 打开你的分镜 PSD 文档，执行脚本。  
+   - 在弹出的设置窗口中：  
+     - 选择输出文件夹、起始编号。  
+     - 调整导出尺寸（支持预设或自定义）。  
+     - 选择导出格式（JPG / PNG / WebP）。  
+     - 如有需要，点击 **🔗 连续镜头** 为不同区域标记连续性。  
+     - 点击 **📋 预览文件名** 检查编号是否正确。  
+   - 点击 **开始导出**。
 
----
-
-### English Version
-
-# Photoshop Storyboard Exporter
-
-> 🎬 **One‑click storyboard cropping & professional clapperboard naming. Saves animators & storyboard artists 2+ hours daily.**
-
-A Photoshop automation script for animation, comics, and pre‑production. It automatically crops panels based on guides, exports high‑res JPGs, and generates industry‑standard continuous shot numbering (e.g., `002‑01`, `002‑02`). Say goodbye to manual exporting and tedious file renaming.
-
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/0dffbb9d-60d0-4ebf-bec8-5a65bb9f42c0" width="600" alt="Script UI" />
-  <p><b>▲ Setting up guides</b> — Horizontal guides define regions; vertical guides constrain width</p>
-  <br/>
-  <img src="https://github.com/user-attachments/assets/aed0c2d5-0e86-4c0a-bf04-963d84a8ebc6" width="600" alt="Export dialog" />
-  <p><b>▲ One‑click configuration</b> — Choose output folder, crop mode, sub‑shot count, and smart naming</p>
-  <br/>
-  <img src="https://github.com/user-attachments/assets/1c10c07e-925e-4831-934f-55a3403f4ed2" width="600" alt="Export result" />
-  <p><b>▲ Export result</b> — Continuous shots are numbered automatically, no more messy filenames</p>
-</div>
+3. **等待完成**  
+   进度窗口会显示每一步的状态，完成后弹出摘要提示。
 
 ---
 
-## ✨ Why you need it
+## 🖥️ 界面预览 | UI Preview
 
-| Traditional manual workflow | With this script |
-|----------------------------|------------------|
-| Manually crop each panel and readjust size | **Auto‑crop** based on guides, perfectly framed every time |
-| Export layer by layer, type filenames one by one | **Batch export** all layers with smart incremental numbering |
-| Continuous shot naming chaos (`002_v2`, `002_final`) | Layer tag `[cont:3,4]` produces **`002‑01`, `002‑02` automatically** |
-| Change export size manually for different projects | Preset manager (1080p / 4K / Square) — **one click to switch** |
-| Each export takes 30–60 minutes | **Done in seconds** — process many more shots per day |
+| 功能设置 | 连续镜头 | 批量重命名 |
+|:---:|:---:|:---:|
+| ![功能设置](https://github.com/user-attachments/assets/7a1fbc46-b307-469d-8f34-54f996eebab1) | ![连续镜头](https://github.com/user-attachments/assets/e5cb3214-a066-45d4-819e-67a2cdc49bbe) | ![批量重命名](https://github.com/user-attachments/assets/0c6c2059-913d-4796-a279-7bfdc870bac6) |
 
-> ⏱️ **Real‑world test: A 10‑layer, 5‑region storyboard takes ~45 minutes manually. This script finishes in 8 seconds.**
 
----
 
-## 📦 Key Features
 
-- 🎯 **Smart cropping**: Vertical / horizontal priority modes, auto‑adapted to target aspect ratio (e.g., 1920×1080).
-- 🧩 **Multi‑layer batch processing**: Process only visible layers or all layers at once, with independent numbering per layer.
-- 🔢 **Continuous shot naming**: Innovative layer tagging (`[cont:region]`) shares the main number across continuous panels and appends sub‑numbers.
-- ⚙️ **Custom resolution & presets**: Built‑in presets (1080p, 4K, Square) that you can modify and save.
-- ⏱️ **Timer & log**: Automatic export log for tracking and verification.
+- **主对话框**：设置导出参数、预设、裁剪模式等。  
+- **连续镜头设置**：分页表格，为每个图层的每个区域勾选“连续”。  
+- **批量重命名**：快速规范图层名称。
 
 ---
 
-## 💻 System Requirements
+## ⚙️ 配置与高级功能 | Advanced
 
-- **Adobe Photoshop CS6** or later (ExtendScript compatible)
-- Windows or macOS
+### 编号逻辑说明
 
----
+- 每个图层按区域顺序处理。  
+- 如果某个区域被标记为“连续”，则它与上一区域（或同一图层内前一连续区域）共享同一个主编号，并自动生成子编号（`-01`, `-02`…）。  
+- 非连续区域会使主编号递增，子编号重置。  
+- 不同图层之间，如果上一个图层的最后一个区域是连续区域，而当前图层的第一个区域也是连续区域，则主编号继续累加而不额外递增（适合同一个动作跨图层的情况）。
 
-## 📥 Installation
+### 预设管理
 
-1. Download the latest `StoryboardExport_v1.0_CN.jsx` (Chinese UI) or `StoryboardExport_v1.0_EN.jsx` (English UI) from the [Releases page](https://github.com/enktici-lgtm/Photoshop-Storyboard-Exporter/releases).
-2. Copy the script file into Photoshop's Scripts folder:
-   - **Windows**: `C:\Program Files\Adobe\Adobe Photoshop [version]\Presets\Scripts`
-   - **macOS**: `/Applications/Adobe Photoshop [version]/Presets/Scripts`
-3. Restart Photoshop. You’ll find the script under `File → Scripts`.
+内置三种分辨率预设（1080p, 4K, Square），可以修改并保存。自定义尺寸会自动保存到当前预设中。
 
----
+### 兼容性
 
-## 🚀 Quick Start
-
-### 1. Prepare your storyboard file
-Make sure your PSD has:
-- **At least two horizontal guides** to define each region.
-- **(Optional) two vertical guides** to fix left/right boundaries (vertical priority) or to serve as centering range (horizontal priority).
-
-### 2. Run the script and configure
-- **Preset**: Quickly switch output resolution.
-- **Output Folder**: Where to save the exported JPGs.
-- **Start Number**: Supports numeric only (`000`) or with prefix (`SH001`).
-- **Crop Base**:
-  - *Vertical Priority*: Left/right fixed by vertical guides, vertically centered.
-  - *Horizontal Priority*: Top/bottom fixed by horizontal guides, horizontally centered within vertical guides (or canvas).
-- **Layer Range**: Only visible layers or all layers.
-- **Sub‑shot count**: Define how many frames each region exports (useful for multiple takes of the same shot).
-
-### 3. Mark continuous shots (optional)
-Add `[cont:region number]` at the end of a layer name, e.g., `Scene1 [cont:3,4]`.  
-This tells the script that Region 3 and Region 4 are continuous takes of the same shot. They will share the main number and receive sequential sub‑numbers like `002‑01`, `002‑02`.
-
-Click the **💡 How to mark continuous shots?** button inside the dialog for an in‑app explanation.
-
-### 4. Export
-Click **Export** and within seconds you’ll have neatly numbered JPG files in your output folder, along with an `export_log.txt` for your records.
+- 支持 Photoshop CC 2015 及更高版本（建议 CC 2018+）。  
+- WebP 格式需要 Photoshop 21.0 以上（不支持时自动降级为 PNG）。
 
 ---
 
-## 🤝 Feedback & Contribution
+## 📝 升级日志 | Changelog (v1.0.1)
 
-This project is fully open source. You’re welcome to:
-- **Submit an Issue** for bug reports or feature requests.
-- **Create a Pull Request** to improve code or documentation.
-- **Share it** with fellow creators to help them save hours of manual work.
+相比 v1.0.0 的主要改进：
 
-GitHub Repository: [https://github.com/enktici-lgtm/Photoshop-Storyboard-Exporter](https://github.com/enktici-lgtm/Photoshop-Storyboard-Exporter)
+- **新增** 多格式导出（JPG/PNG/WebP）  
+- **新增** 跳过已存在文件  
+- **新增** 导出进度窗口及取消功能  
+- **新增** 图形化连续镜头设置（表格 + 分页）  
+- **新增** 批量重命名图层  
+- **新增** 文件名预览  
+- **优化** 性能：暂停屏幕更新、快照复制、批量设置图层可见性  
+- **重构** 模块化代码，支持图层组  
+- **修复** 编号系统、文件冲突处理等若干问题  
+
+> 详细升级日志见 [CHANGELOG.md](CHANGELOG.md)。
 
 ---
 
-## 📄 License
+## 🤝 贡献与反馈 | Contributing
 
-Released under the [MIT License](LICENSE). You are free to use, modify, and distribute this script.
+欢迎提交 Issue 或 Pull Request。如果你有功能建议或遇到 Bug，请附上 Photoshop 版本和系统信息。
+
+---
+
+## 📄 许可证 | License
+
+MIT License. See [LICENSE](LICENSE) file.
+
+---
+
+**Enjoy storyboarding!** 🎬
